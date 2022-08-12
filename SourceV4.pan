@@ -17,6 +17,7 @@ makenewprocedure "GetDBInfo",""
 makenewprocedure ".AutomaticFY",""
 makenewprocedure "Folders&FilesMacros",""
 makenewprocedure "DesignSheetExportImport",""
+makenewprocedure ".FileChecker",""
 ;---------
 openprocedure "ExportMacros"
 setproceduretext {local Dictionary1, ProcedureList
@@ -336,13 +337,79 @@ window (winChoice2)
 
 }
 
+openprocedure ".FileChecker"
+setproceduretext {///*********This is the FileChecker macro in GetMacros
+local fileNeeded,folderArray,smallFolderArray,sizeCheck
 
+//replace this with whatever file you're error checking
+//----------------------//
+fileNeeded="members"    //
+//----------------------//
+
+
+case info("files") notcontains fileNeeded and listfiles(folder(""),"????KASX") contains fileNeeded
+openfile fileNeeded
+
+case listfiles(folder(""),"????KASX") notcontains fileNeeded
+
+    folderArray=folderpath(folder(""))
+    sizeCheck=arraysize(folderArray,":")
+    smallFolderArray=arrayrange(folderArray,4,sizeCheck,":")
+
+//See an example below this codebase of what this looks like 
+    displaydata "You are missing the '"+fileNeeded+"' Panorama file in this folder 
+    and can't continue this procedure without it. Please move a copy of
+    '"+fileNeeded+"' to the appropriate folder and try the procedure again"
+    +¶+¶+¶+
+    "folder you're currently running from is: "
+    +¶+
+    smallFolderArray
+    +¶+¶+¶+
+    "current Pan files in that folder are: "
+    +¶+
+    listfiles(folder(""),"????KASX")
+    +¶+¶+¶+
+    "Pressing 'Ok' will open the Finder to your current folder"
+    +¶+¶+
+    "Press 'Stop' will stop this procedure", “title="Missing File!!!!" captionwidth=900 size=17 height=500 width=800”
+    revealinfinder folder(""),""
+    stop
+
+defaultcase
+window fileNeeded
+
+endcase
+
+/*
+Example:
+
+You are missing the 'members' Panorama file in this folder 
+and can't continue this procedure without it. Please move a copy of
+'members' to the appropriate folder and try the procedure again
+
+
+folder you're currently running from is: 
+Desktop:Panorama:FY45 Panorama Projects:GetMacros:
+
+
+current Pan files in that folder are: 
+GetMacros
+GetMacrosDL
+GetMacros44
+
+
+Pressing 'Ok' will open the Finder to your current folder
+
+Press 'Stop' will stop this procedure
+*/
+}
 
 
 
 
 /*
-
+___________________________________________________________
+___________________________________________________________
 
 
 space intentionally left blank 
@@ -697,3 +764,349 @@ window (winChoice2)
 
 
 ___ ENDPROCEDURE DesignSheetExportImport _______________________________________
+
+___ PROCEDURE (In Testing) _____________________________________________________
+
+___ ENDPROCEDURE (In Testing) __________________________________________________
+
+___ PROCEDURE FileChecker ______________________________________________________
+///*********This is the FileChecker macro in GetMacros
+local fileNeeded,folderArray,smallFolderArray,sizeCheck
+
+//replace this with whatever file you're error checking
+//----------------------//
+fileNeeded="members"    //
+//----------------------//
+
+
+case info("files") notcontains fileNeeded and listfiles(folder(""),"????KASX") contains fileNeeded
+openfile fileNeeded
+
+case listfiles(folder(""),"????KASX") notcontains fileNeeded
+
+    folderArray=folderpath(folder(""))
+    sizeCheck=arraysize(folderArray,":")
+    smallFolderArray=arrayrange(folderArray,4,sizeCheck,":")
+
+//See an example below this codebase of what this looks like 
+    displaydata "You are missing the '"+fileNeeded+"' Panorama file in this folder 
+    and can't continue this procedure without it. Please move a copy of
+    '"+fileNeeded+"' to the appropriate folder and try the procedure again"
+    +¶+¶+¶+
+    "folder you're currently running from is: "
+    +¶+
+    smallFolderArray
+    +¶+¶+¶+
+    "current Pan files in that folder are: "
+    +¶+
+    listfiles(folder(""),"????KASX")
+    +¶+¶+¶+
+    "Pressing 'Ok' will open the Finder to your current folder"
+    +¶+¶+
+    "Press 'Stop' will stop this procedure", {title="Missing File!!!!" captionwidth=900 size=17 height=500 width=800}
+    revealinfinder folder(""),""
+    stop
+
+defaultcase
+window fileNeeded
+
+endcase
+
+/*
+Example:
+
+You are missing the 'members' Panorama file in this folder 
+and can't continue this procedure without it. Please move a copy of
+'members' to the appropriate folder and try the procedure again
+
+
+folder you're currently running from is: 
+Desktop:Panorama:FY45 Panorama Projects:GetMacros:
+
+
+current Pan files in that folder are: 
+GetMacros
+GetMacrosDL
+GetMacros44
+
+
+Pressing 'Ok' will open the Finder to your current folder
+
+Press 'Stop' will stop this procedure
+*/
+___ ENDPROCEDURE FileChecker ___________________________________________________
+
+___ PROCEDURE .GetProcList _____________________________________________________
+global folderArray, procList,windowsListed, mostRecentProc
+
+mostRecentProc=tabarray(nthline(info("procedurestack"),1),1)
+procList=info("procedurestack")
+folderArray=folderpath(folder(""))
+
+___ ENDPROCEDURE .GetProcList __________________________________________________
+
+___ PROCEDURE .FileChecker _____________________________________________________
+///*********This is the FileChecker macro in GetMacros
+local fileNeeded,folderArray,smallFolderArray,sizeCheck
+
+//replace this with whatever file you're error checking
+//----------------------//
+fileNeeded="members"    //
+//----------------------//
+
+
+case info("files") notcontains fileNeeded and listfiles(folder(""),"????KASX") contains fileNeeded
+openfile fileNeeded
+
+case listfiles(folder(""),"????KASX") notcontains fileNeeded
+
+    folderArray=folderpath(folder(""))
+    sizeCheck=arraysize(folderArray,":")
+    smallFolderArray=arrayrange(folderArray,4,sizeCheck,":")
+
+//See an example below this codebase of what this looks like 
+    displaydata "You are missing the '"+fileNeeded+"' Panorama file in this folder 
+    and can't continue this procedure without it. Please move a copy of
+    '"+fileNeeded+"' to the appropriate folder and try the procedure again"
+    +¶+¶+¶+
+    "folder you're currently running from is: "
+    +¶+
+    smallFolderArray
+    +¶+¶+¶+
+    "current Pan files in that folder are: "
+    +¶+
+    listfiles(folder(""),"????KASX")
+    +¶+¶+¶+
+    "Pressing 'Ok' will open the Finder to your current folder"
+    +¶+¶+
+    "Press 'Stop' will stop this procedure", {title="Missing File!!!!" captionwidth=900 size=17 height=500 width=800}
+    revealinfinder folder(""),""
+    stop
+
+defaultcase
+window fileNeeded
+
+endcase
+
+/*
+Example:
+
+You are missing the 'members' Panorama file in this folder 
+and can't continue this procedure without it. Please move a copy of
+'members' to the appropriate folder and try the procedure again
+
+
+folder you're currently running from is: 
+Desktop:Panorama:FY45 Panorama Projects:GetMacros:
+
+
+current Pan files in that folder are: 
+GetMacros
+GetMacrosDL
+GetMacros44
+
+
+Pressing 'Ok' will open the Finder to your current folder
+
+Press 'Stop' will stop this procedure
+*/
+___ ENDPROCEDURE .FileChecker __________________________________________________
+
+___ PROCEDURE .GetErrorLog _____________________________________________________
+
+///*********This is the .GetErrorLog macro in GetMacros
+fileglobal fileNeeded,folderArray,smallFolderArray,sizeCheck, procList, mostRecentProc, 
+panFilesList,activeFiles,allvariables,procNames,procDBs,errorList, procText, procTextArray,
+lineNum, procCount, usedvariables,printVariables,strippedText,getError,errorMsg,vDb,vProc,
+activeWindows,DictNameToday
+
+permanent errorDictionary
+
+errorDictionary=errorDictionary
+if error
+errorDictionary=""
+endif
+
+errorMsg=""
+
+getError=str(parameter(1))
+if error
+getError="Unknown"
+endif
+
+procList=arraystrip(info("procedurestack"),¶)
+if procList=""
+message "Procedure Stack is Empty -L"
+stop
+endif
+sizeCheck=arraysize(procList,¶)
+if sizeCheck>1
+procList=arrayrange(procList,2,sizeCheck,¶)
+else
+procList=arraystrip(info("procedurestack"),¶)
+endif
+procNames=arraycolumn(procList,1,¶,¬)
+procDBs=arraycolumn(procList,2,¶,¬)
+mostRecentProc=array(procNames,1,¶) //it's 2 because the .GetError procedure will be in the list and we want the procedure that got the error
+folderArray=folderpath(folder(""))
+;sizeCheck=arraysize(folderArray,":")
+;smallFolderArray=arrayrange(folderArray,4,sizeCheck,":")
+panFilesList=listfiles(folder(""),"????KASX")
+activeFiles=info("files")
+activeWindows=info("windows")
+allvariables="Global variables"+¶+¶+info("globalvariables")+¶+¶+"local variables"+¶+¶+info("localvariables")+¶+¶+"fileglobal variables"+¶+¶+info("filevariables")+¶+¶+"window variables"+¶+¶+info("windowvariables")
+
+
+;displaydata procNames
+;displaydata procDBs
+lineNum=1
+procCount=arraysize(procNames,¶)
+;message "count"+str(procCount)
+
+
+
+loop
+vDb=array(procDBs,lineNum,¶)
+vProc=array(procNames,lineNum,¶)
+getproceduretext vDb,vProc,procText
+
+procTextArray=vProc+¶+¶+procText+¶+procTextArray
+lineNum=lineNum+1
+while lineNum<procCount
+
+/*
+if error
+    goto Repeat
+endif
+*/
+
+
+
+
+//_________________Make code into word array______________________//
+
+///this function makes two arrays similar enough to compare to find out
+//which of the active variables was in the procedures that were recently called
+
+//gets rid of the most common characters in the text and replaces them with ; to give the other functions
+//a separator to work with
+strippedText=replacemultiple(procTextArray,
+“.||?||!||,||;||:||-||_||(||)||[||]||{||}||"||'||+||¶||¬||/||=||*||" "|| ||”,
+“;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||;||”,
+"||")
+
+strippedText=stripchar(strippedText,"AZaz09;")
+arraystrip strippedText,";"
+
+//take that array and make it a ¶ delimited one
+strippedText=replace(strippedText,";",¶)
+arraydeduplicate strippedText,strippedText,¶
+
+//get rid of the blank elements in the variable lis
+usedvariables=arraystrip(allvariables,¶)
+
+//do a comparison for whats in both of them and put that in printVariables
+arrayboth strippedText, usedvariables, ¶, printVariables
+;displaydata printVariables
+////________________________________________________________________//
+
+////____________Error Log____________________
+DictNameToday=superdatepattern(supernow(),"mm/dd/yy@", "hh:mm" )
+setdictionaryvalue errorDictionary,DictNameToday, 
+"Error: '"+mostRecentProc+"' created an error."
++¶+¶+
+"ErrorCode: "+getError
++¶+¶+¶+
+"folder in use: "
++¶+
+folderArray
++¶+¶+¶+
+"current Pan files in that folder are: "
++¶+
+panFilesList
++¶+¶+¶+
+"currently open files are: "
++¶+
+activeFiles
++¶+¶+¶+
+"currently open windows are: "
++¶+
+activeWindows
++¶+¶+¶+
+"last procedures run were"
++¶+
+procList
++¶+¶+¶+
+"text of non-design/form procedures:"
++¶+
+procTextArray
++¶+¶+¶+
+"variables used in last macros:"
++¶+
+printVariables
+
+
+
+////_____________ErrorDisplay________________________________________
+
+errorList="array of error to call to below"
+
+displaydata "Error: '"+mostRecentProc+"' procedure/macro created an error."
++¶+¶+
+"ErrorCode: "+getError
++¶+¶+
+"Warning! If you click OK the macro will continue without fixing
+the error. Proceed with caution, or click Stop instead."
++¶+¶+
+"Click 'stop' to end the macro here and try what you were doing again"
++¶+¶+
+"If the problem persists, use the 'COPY' button, paste this error in an e-mail 
+and send it to: tech-support@fedcoseeds.com with a description of what happened
+
+
+
+_______________________________________________________________________________"
++¶+¶+¶+
+"---------------------------------------------------
+THE FOLLOWING LINES ARE TO HELP WITH ERROR CHECKING
+---------------------------------------------------"
++¶+¶+¶+
+"folder in use: "
++¶+
+folderArray
++¶+¶+¶+
+"current Pan files in that folder are: "
++¶+
+panFilesList
++¶+¶+¶+
+"currently open files are: "
++¶+
+activeFiles
++¶+¶+¶+
+"currently open windows are: "
++¶+
+activeWindows
++¶+¶+¶+
+"last procedures run were"
++¶+
+procList
++¶+¶+¶+
+"text of non-design/form procedures:"
++¶+
+procTextArray
++¶+¶+¶+
+"variables used in last macros:"
++¶+
+printVariables, 
+“title="Error Capture Bot 3.0" 
+captionwidth=900 
+size=17 
+height=500 
+width=1000”
+
+
+
+
+
+
+___ ENDPROCEDURE .GetErrorLog __________________________________________________
