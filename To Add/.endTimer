@@ -1,0 +1,7 @@
+global timeEnd,timeDiff
+
+timeEnd=now()
+
+timeDiff=timedifference(timeStart,timeEnd)
+
+displaydata timeDiff+" seconds"
